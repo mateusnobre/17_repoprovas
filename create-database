@@ -1,0 +1,14 @@
+#!/bin/bash
+
+source src/functions;
+
+DATABASE=$(cat src/database_name);
+
+echo "Checando status do postgres..." &&
+checkPostgres && 
+
+echo "Criando banco de dados..." &&
+createDatabase $DATABASE &&
+
+echo "Criando banco de dados de teste..." &&
+createDatabase "${DATABASE}_test"
