@@ -20,7 +20,6 @@ afterAll(async () => {
 describe("GET /categories", () => {
   it("should answer with status 200", async () => {
     const category = await createCategory();
-
     const response = await supertest(app).get("/categories");
     
     expect(response.body).toEqual(
@@ -34,3 +33,14 @@ describe("GET /categories", () => {
     expect(response.status).toBe(200);
   });
 });
+
+describe("POST /categories", () => {
+  it("should answer with status 201", async () => {
+    const category = {name: "some random name"}
+    const response = await supertest(app).post("/categories").send(category);
+    expect(response.status).toBe(201);
+  });
+});
+
+
+
