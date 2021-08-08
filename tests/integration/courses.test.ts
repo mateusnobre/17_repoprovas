@@ -3,14 +3,16 @@ import { getConnection } from "typeorm";
 
 import app, { init } from "../../src/app";
 import { createCourse} from "../factories/courseFactory";
-import { clearDatabase } from "../utils/database";
+import { createLecturer } from "../factories/lecturerFactory";
+import { clearCourses, clearExams } from "../utils/database";
 
 beforeAll(async () => {
   await init();
 });
 
 beforeEach(async () => {
-  await clearDatabase();
+  await clearExams();
+  await clearCourses();
 });
 
 afterAll(async () => {
@@ -37,7 +39,8 @@ describe("GET /courses", () => {
 
 describe("POST /courses", () => {
   it("should answer with status 201", async () => {
-    const course = {name: "some random name"}
+    const lecturer = await createLecturer();
+    const course = {name: "some random name", lecturerId: lecturer.id}
     const response = await supertest(app).post("/courses").send(course);
     expect(response.status).toBe(201);
   });

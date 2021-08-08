@@ -3,14 +3,16 @@ import { getConnection } from "typeorm";
 
 import app, { init } from "../../src/app";
 import { createLecturer } from "../factories/lecturerFactory";
-import { clearDatabase } from "../utils/database";
+import { clearCourses, clearExams, clearLecturers } from "../utils/database";
 
 beforeAll(async () => {
   await init();
 });
 
 beforeEach(async () => {
-  await clearDatabase();
+  await clearExams();
+  await clearCourses();
+  await clearLecturers();
 });
 
 afterAll(async () => {

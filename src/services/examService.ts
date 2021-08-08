@@ -14,10 +14,23 @@ export async function getExams () {
 }
 
 export async function postExam (name: string, url: string, courseId: number, categoryId: number) {
+  const course = await getRepository(Course).findOne({
+    where: { id: courseId },
+    relations: ['exams']
+  });
+  console.log(courseId);
+  const category = await getRepository(Category).findOne({
+    where: { id: categoryId },
+    relations: ['exams']
+  });
   const exam = await getRepository(Exam).create({
     name: name,
     url: url
   });
+  course.exams.push(exam)
+  category.exams.push(exam)
   await getRepository(Exam).save(exam);
+  await getRepository(Course).save(course);
+  await getRepository(Category).save(category);
   return exam;
 }

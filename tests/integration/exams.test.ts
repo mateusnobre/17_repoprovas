@@ -3,14 +3,16 @@ import { getConnection } from "typeorm";
 
 import app, { init } from "../../src/app";
 import { createExam } from "../factories/examFactory";
-import { clearDatabase } from "../utils/database";
+import { createCategory } from "../factories/categoryFactory";
+import { createCourse } from "../factories/courseFactory";
+import { clearExams } from "../utils/database";
 
 beforeAll(async () => {
   await init();
 });
 
 beforeEach(async () => {
-  await clearDatabase();
+  await clearExams();
 });
 
 afterAll(async () => {
@@ -39,7 +41,9 @@ describe("GET /exams", () => {
 
 describe("POST /exams", () => {
   it("should answer with status 201", async () => {
-    const exam = {name: "some random name", url: 'https://download.inep.gov.br/educacao_basica/enem/provas/2017/cad_5_prova_amarelo_12112017.pdf'}
+    const category = await createCategory();
+    const course = await createCourse();
+    const exam = {name: "some random name", url: 'https://download.inep.gov.br/educacao_basica/enem/provas/2017/cad_5_prova_amarelo_12112017.pdf', courseId: course.id, categoryId: category.id}
     const response = await supertest(app).post("/exams").send(exam);
     expect(response.status).toBe(201);
   });
