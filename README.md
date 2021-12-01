@@ -6,7 +6,15 @@ App built with Express and Typescript (using Jest and Supertest for integration 
 To run the project, after cloning the repository:
 
 ## Clone the .env.example and write your database vars
-`cp .env.example .env`
+`cp .env.example .env`\
+
+## Create the database repoprovas (you could also create it manually)
+`./create-database`
+
+
+## Create tables (Running migrations)
+`npm run build`
+`npm run typeorm migration:run`
 
 ## Testing
 
