@@ -18,7 +18,6 @@ export async function postExam (name: string, url: string, courseId: number, cat
     where: { id: courseId },
     relations: ['exams']
   });
-  console.log(courseId);
   const category = await getRepository(Category).findOne({
     where: { id: categoryId },
     relations: ['exams']
