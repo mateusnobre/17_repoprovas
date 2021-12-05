@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn, BeforeInsert, BeforeUpdate, OneToMany, BaseEntity, OneToOne, DeepPartial } from 'typeorm'
-import bcrypt from 'bcryptjs'
+import bcrypt from 'bcrypt'
 import Exam from './Exam'
 import Session from './Session'
 @Entity('users')
@@ -46,20 +46,8 @@ export default class User extends BaseEntity {
       return newUser
     }
 
-    static async updateUser(id: User['id'], { name, nationality, bio, pictureURL }:
-        { name?: User['name'], nationality?: User['nationality'], bio?: User['bio'], pictureURL?: User['pictureURL'] }) {
-      const updatedProperties = this.filterNullProperties({ name, nationality, bio, pictureURL })
-
-      await this.update({ id }, updatedProperties)
-    }
-
     static async deleteUser(id: User['id']) {
       await this.delete({ id })
-    }
-
-    static filterNullProperties(properties: DeepPartial<User>) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      return Object.fromEntries(Object.entries(properties).filter(([_, v]) => v != null))
     }
 
     static async findByEmail(email: User['email']) {

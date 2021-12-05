@@ -10,5 +10,5 @@
     "tests"
   ],
   "target": "esnext",
-  "lib": ["es2019", "dom"]
+  "lib": ["esnext", "dom"]
 }

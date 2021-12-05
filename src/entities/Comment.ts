@@ -26,28 +26,4 @@ export default class Comment extends BaseEntity {
     @ManyToOne(() => User, { eager: true })
     user!: User
 
-    static async createNew({ body, exam, user }:
-        {body: Comment['body'], exam: Comment['exam'], user: Comment['user']}) {
-      const newComment = this.create({ body, exam, user })
-    
-      await this.save(newComment)
-    
-      return newComment
-    }
-
-    static async updateComment(id: Comment['id'], { body }:
-        {body?: Comment['body']}) {
-      const updatedProperties = this.filterNullProperties({ body })
-      
-      await this.update({ id }, updatedProperties)
-    }
-  
-    static async deleteComment(commentId: Comment['id']) {
-      await this.delete({ id: commentId })
-    }
-
-    static filterNullProperties(properties: DeepPartial<Comment>) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      return Object.fromEntries(Object.entries(properties).filter(([_, v]) => v != null))
-    }
 }
