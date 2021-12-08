@@ -1,8 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { basename } from "path/posix";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, BaseEntity } from "typeorm";
 import Exam from "./Exam";
 
 @Entity("categories")
-export default class Category {
+export default class Category extends BaseEntity{
   @PrimaryGeneratedColumn()
   id: number;
 

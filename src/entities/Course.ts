@@ -1,9 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, OneToMany, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, BaseEntity } from "typeorm";
 import Exam from "./Exam";
 import Lecturer from "./Lecturer";
 
 @Entity("courses")
-export default class Course {
+export default class Course extends BaseEntity{
   @PrimaryGeneratedColumn()
   id: number;
 

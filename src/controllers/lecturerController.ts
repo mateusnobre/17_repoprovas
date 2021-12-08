@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import Lecturer from "../entities/Lecturer";
 
 import * as lecturerService from "../services/lecturerService";
 

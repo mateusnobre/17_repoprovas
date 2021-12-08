@@ -25,5 +25,17 @@ export default class Comment extends BaseEntity {
 
     @ManyToOne(() => User, { eager: true })
     user!: User
+    static async createNew({ body, exam, user }:
+        {body: Comment['body'], exam: Comment['exam'], user: Comment['user']}) {
+      const newComment = this.create({ body, exam, user })
+    
+      await this.save(newComment)
+    
+      return newComment
+    }
+  
+    static async deleteComment(commentId: Comment['id']) {
+      await this.delete({ id: commentId })
+    }
 
 }
